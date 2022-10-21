@@ -3,6 +3,7 @@ name: Create and publish a Docker image
 on:
   push:
     branches: ['main']
+    paths: 'dockerfile'    
 
 env:
   REGISTRY: ghcr.io
