@@ -13,3 +13,4 @@ RUN unzip kubelogin-linux-amd64.zip && cp bin/linux_amd64/kubelogin /bin/kubelog
 RUN curl -LO "https://github.com/derailed/k9s/releases/latest/download/k9s_Linux_x86_64.tar.gz"
 RUN tar -xf k9s_Linux_x86_64.tar.gz && cp k9s /bin/k9s
 RUN rm k9s_Linux_x86_64.tar.gz kubelogin-linux-amd64.zip kubectl k9s
+RUN echo -e "\nalias k='kubectl'" >> /root/.bashrc
