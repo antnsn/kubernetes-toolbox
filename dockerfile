@@ -19,6 +19,9 @@ RUN unzip kubelogin-linux-amd64.zip && cp bin/linux_amd64/kubelogin /bin/kubelog
 RUN curl -LO "https://github.com/derailed/k9s/releases/latest/download/k9s_Linux_x86_64.tar.gz"
 RUN tar zxvf k9s_Linux_x86_64.tar.gz -C /bin
 
+# Helm
+Run curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
 # Kubectx
 RUN git clone https://github.com/ahmetb/kubectx /root/kubectx
 RUN ln -s /root/kubectx/kubectx /bin/kubectx && ln -s /root/kubectx/kubens /bin/kubens

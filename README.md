@@ -6,6 +6,7 @@ Container image based on official Azure-cli image from Microsoft
 - kubectl
     - krew
 - kubelogin
+- Helm
 - k9s
 - Kubectx
 - crictl
