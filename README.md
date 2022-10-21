@@ -19,7 +19,7 @@ Container image based on official Azure-cli image from Microsoft
 - unzip
 - git
 - make
-
+- ncurses
 
 
 

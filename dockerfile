@@ -5,7 +5,7 @@
 
 FROM mcr.microsoft.com/azure-cli
 
-RUN apk add --no-cache bash curl unzip git make
+RUN apk add --no-cache bash curl unzip git make ncurses
 
 # kubectl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
