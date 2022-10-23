@@ -50,3 +50,5 @@ RUN echo -e "\nalias k='kubectl'" >> /root/.bashrc
 # Cleanup
 RUN rm -f k9s_Linux_x86_64.tar.gz kubelogin-linux-amd64.zip kubectl kube-bench_0.6.10_linux_amd64.tar.gz crictl-v1.24.1-linux-amd64.tar.gz
 RUN rm -rf /bin/linux_amd64
+
+EXPOSE 8088 8087 8086 8085
