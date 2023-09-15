@@ -2,7 +2,7 @@
 ## Dockerfile for Azure CLI and Kubernetes Tools
 This Dockerfile builds a Docker image containing Azure CLI and various Kubernetes tools. It uses a multi-stage build to keep the final image size small.
 
-[![Create and publish a Docker image](https://github.com/antnsn/kube-mgmt/actions/workflows/build.yml/badge.svg)](https://github.com/antnsn/kube-mgmt/actions/workflows/build.yml)
+[![Docker Publish](https://github.com/antnsn/kube-mgmt/actions/workflows/build.yml/badge.svg)](https://github.com/antnsn/kube-mgmt/actions/workflows/build.yml)
 
 ### Building the Docker Image
 To build the Docker image, navigate to the directory containing the Dockerfile and run the following command:
