@@ -22,7 +22,9 @@ RUN curl -LO "https://github.com/derailed/k9s/releases/latest/download/k9s_Linux
     tar zxvf k9s_Linux_amd64.tar.gz -C /usr/local/bin
 
 # Install Helm
-RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | sh
+RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && \
+chmod 700 get_helm.sh && \
+./get_helm.sh
 
 # Install Kubectx
 RUN git clone https://github.com/ahmetb/kubectx /root/kubectx && \
