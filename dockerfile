@@ -1,24 +1,24 @@
-# Use a smaller base image like Alpine Linux
-FROM alpine:3.14
+# Use Ubuntu 20.04 as the base image
+FROM ubuntu:20.04
 
-# Install required tools and dependencies
-RUN apk add --no-cache \
+# Update package lists and install required tools and dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     bash \
     curl \
     unzip \
     git \
     make \
-    ncurses \
-    py3-pip \
+    ncurses-term \
+    python3-pip \
     gcc \
-    musl-dev \
     python3-dev \
     libffi-dev \
-    openssl-dev \
+    libssl-dev \
     cargo && \
-    pip install --upgrade pip && \
-    pip install azure-cli && \
-    rm -rf /root/.cache
+    pip3 install --upgrade pip && \
+    pip3 install azure-cli && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install kubectl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
@@ -74,8 +74,9 @@ RUN (set -x; cd "$(mktemp -d)" && \
 RUN echo -e "\nalias k='kubectl'" >> /root/.bashrc
 
 # Cleanup and remove unnecessary files
-RUN rm -rf /var/cache/apk/* && \
-    rm -rf /root/kubectx
+RUN apt-get clean && \
+    rm -rf /root/kubectx && \
+    rm -rf /tmp/*
 
 # Expose necessary ports
 EXPOSE 8088 8087 8086 8085
