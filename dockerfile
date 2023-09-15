@@ -2,8 +2,20 @@
 FROM alpine:3.14
 
 # Install required tools and dependencies
-RUN apk add --no-cache bash curl unzip git make ncurses py3-pip && \
-    apk add --no-cache gcc musl-dev python3-dev libffi-dev openssl-dev cargo && \
+RUN apk add --no-cache \
+    bash \
+    curl \
+    unzip \
+    git \
+    make \
+    ncurses \
+    py3-pip \
+    gcc \
+    musl-dev \
+    python3-dev \
+    libffi-dev \
+    openssl-dev \
+    cargo && \
     pip install --upgrade pip && \
     pip install azure-cli && \
     rm -rf /root/.cache
@@ -15,17 +27,19 @@ RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/s
 # Install kubelogin
 RUN curl -LO "https://github.com/Azure/kubelogin/releases/latest/download/kubelogin-linux-amd64.zip" && \
     unzip kubelogin-linux-amd64.zip && \
-    mv bin/linux_amd64/kubelogin /usr/local/bin/kubelogin
+    mv bin/linux_amd64/kubelogin /usr/local/bin/kubelogin && \
+    rm kubelogin-linux-amd64.zip
 
 # Install k9s
 RUN curl -LO "https://github.com/derailed/k9s/releases/latest/download/k9s_Linux_amd64.tar.gz" && \
-    tar zxvf k9s_Linux_amd64.tar.gz -C /usr/local/bin
+    tar zxvf k9s_Linux_amd64.tar.gz -C /usr/local/bin && \
+    rm k9s_Linux_amd64.tar.gz
 
 # Install Helm
 RUN curl -LO "https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3" && \
     chmod 700 get-helm-3 && \
-    ./get-helm-3
-
+    ./get-helm-3 && \
+    rm get-helm-3
 
 # Install Kubectx
 RUN git clone https://github.com/ahmetb/kubectx /root/kubectx && \
@@ -35,17 +49,25 @@ RUN git clone https://github.com/ahmetb/kubectx /root/kubectx && \
 
 # Install crictl
 RUN curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.24.1/crictl-v1.24.1-linux-amd64.tar.gz --output crictl-v1.24.1-linux-amd64.tar.gz && \
-    tar zxvf crictl-v1.24.1-linux-amd64.tar.gz -C /usr/local/bin
+    tar zxvf crictl-v1.24.1-linux-amd64.tar.gz -C /usr/local/bin && \
+    rm crictl-v1.24.1-linux-amd64.tar.gz
 
 # Install trivy
 RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
 
 # Install kube-bench
 RUN curl -LO "https://github.com/aquasecurity/kube-bench/releases/latest/download/kube-bench_0.6.10_linux_amd64.tar.gz" && \
-    tar zxvf kube-bench_0.6.10_linux_amd64.tar.gz -C /usr/local/bin
+    tar zxvf kube-bench_0.6.10_linux_amd64.tar.gz -C /usr/local/bin && \
+    rm kube-bench_0.6.10_linux_amd64.tar.gz
 
 # Install krew
-RUN (set -x; cd "$(mktemp -d)" && OS="$(uname | tr '[:upper:]' '[:lower:]')" && ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" && KREW="krew-${OS}_${ARCH}" && curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" && tar zxvf "${KREW}.tar.gz" && ./"${KREW}" install krew) && \
+RUN (set -x; cd "$(mktemp -d)" && \
+    OS="$(uname | tr '[:upper:]' '[:lower:]')" && \
+    ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" && \
+    KREW="krew-${OS}_${ARCH}" && \
+    curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" && \
+    tar zxvf "${KREW}.tar.gz" && \
+    ./"${KREW}" install krew) && \
     echo -e 'export PATH=${KREW_ROOT:-$HOME/.krew}/bin:$PATH' >> /root/.bashrc
 
 # Alias
@@ -53,7 +75,6 @@ RUN echo -e "\nalias k='kubectl'" >> /root/.bashrc
 
 # Cleanup and remove unnecessary files
 RUN rm -rf /var/cache/apk/* && \
-    rm -f k9s_Linux_amd64.tar.gz kubelogin-linux-amd64.zip kubectl kube-bench_0.6.10_linux_amd64.tar.gz crictl-v1.24.1-linux-amd64.tar.gz && \
     rm -rf /root/kubectx
 
 # Expose necessary ports
