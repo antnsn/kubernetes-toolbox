@@ -16,9 +16,10 @@ RUN apt-get update && \
     libffi-dev \
     libssl-dev \
     cargo && \
-    pip3 install --upgrade pip && \
-    pip3 install azure-cli && \
     rm -rf /var/lib/apt/lists/*
+
+# Install Azure CLI
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 # Install kubectl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
