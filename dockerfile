@@ -18,7 +18,7 @@ RUN curl -LO "https://github.com/Azure/kubelogin/releases/latest/download/kubelo
     mv bin/linux_amd64/kubelogin /usr/local/bin/kubelogin
 
 # Install k9s
-RUN curl -LO "https://github.com/derailed/k9s/releases/latest/download/k9s_Linux_x86_64.tar.gz" && \
+RUN curl -LO "https://github.com/derailed/k9s/releases/latest/download/k9s_Linux_amd64.tar.gz" && \
     tar zxvf k9s_Linux_x86_64.tar.gz -C /usr/local/bin
 
 # Install Helm
