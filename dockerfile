@@ -1,11 +1,17 @@
 # Use ubuntu:23.04 as the base image
 FROM ubuntu:23.04
 
+# Install Kubectl
+RUN curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg && \
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list && \ 
+
 # Update package lists and install required tools and dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     bash \
     curl \
+    apt-transport-https \
+    ca-certificates \
     unzip \
     git \
     make \
@@ -13,16 +19,14 @@ RUN apt-get update && \
     gcc \
     libffi-dev \
     libssl-dev \
+    kubectl \ 
     cargo && \
     rm -rf /var/lib/apt/lists/*
 
+
+
 # Install Azure CLI
 RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
-
-# Install kubectl
-RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
-    chmod +x kubectl && \
-    mv kubectl /bin/kubectl
 
 # Install kubelogin
 RUN curl -LO "https://github.com/Azure/kubelogin/releases/latest/download/kubelogin-linux-amd64.zip" && \
@@ -56,7 +60,7 @@ RUN curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.24
 RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
 
 # Install kube-bench
-RUN curl -LO "https://github.com/aquasecurity/kube-bench/releases/download/v0.6.17/kube-bench_0.6.17_linux_amd64.tar.gz" && \
+RUN curl -LO "https://github.com/aquasecurity/kube-bench/releases/latest/download/kube-bench_0.6.17_linux_amd64.tar.gz" && \
     tar zxvf kube-bench_0.6.17_linux_amd64.tar.gz -C /usr/local/bin && \
     rm kube-bench_0.6.17_linux_amd64.tar.gz
 
