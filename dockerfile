@@ -1,5 +1,5 @@
-# Use Ubuntu 20.04 as the base image
-FROM ubuntu:20.04
+# Use ubuntu:23.04 as the base image
+FROM ubuntu:23.04
 
 # Update package lists and install required tools and dependencies
 RUN apt-get update && \
