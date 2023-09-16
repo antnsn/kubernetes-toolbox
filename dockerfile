@@ -10,9 +10,7 @@ RUN apt-get update && \
     git \
     make \
     ncurses-term \
-    python3-pip \
     gcc \
-    python3-dev \
     libffi-dev \
     libssl-dev \
     cargo && \
