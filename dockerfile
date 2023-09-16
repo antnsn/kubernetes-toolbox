@@ -19,7 +19,7 @@ RUN apt-get update && \
 
 
 # Install Snap
-RUN systemctl enable snapd --now
+RUN service snapd start
 
 # Install tools using Snap
 RUN snap install k9s
