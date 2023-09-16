@@ -57,9 +57,9 @@ RUN curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.24
 RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
 
 # Install kube-bench
-RUN curl -LO "https://github.com/aquasecurity/kube-bench/releases/latest/download/kube-bench_0.6.10_linux_amd64.tar.gz" && \
-    tar zxvf kube-bench_0.6.10_linux_amd64.tar.gz -C /usr/local/bin && \
-    rm kube-bench_0.6.10_linux_amd64.tar.gz
+RUN curl -LO "https://github.com/aquasecurity/kube-bench/releases/download/v0.6.17/kube-bench_0.6.17_linux_amd64.tar.gz" && \
+    tar zxvf kube-bench_0.6.17_linux_amd64.tar.gz -C /usr/local/bin && \
+    rm kube-bench_0.6.17_linux_amd64.tar.gz
 
 # Install krew
 RUN (set -x; cd "$(mktemp -d)" && \
