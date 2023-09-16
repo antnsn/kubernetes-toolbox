@@ -1,12 +1,15 @@
-# Use ubuntu:23.04 as the base image
+# Use a specific Ubuntu base image
 FROM ubuntu:23.04
+
+# Set non-interactive mode for apt-get
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Update package lists and install required tools and dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     bash \
     curl \
-    ca-certificates \ 
+    ca-certificates \
     unzip \
     git \
     make \
@@ -21,7 +24,9 @@ RUN apt-get update && \
 RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
 # Install kubectl
-RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && chmod +x kubectl && mv kubectl /usr/local/bin
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
+    chmod +x kubectl && \
+    mv kubectl /usr/local/bin
 
 # Install kubelogin
 RUN curl -LO "https://github.com/Azure/kubelogin/releases/latest/download/kubelogin-linux-amd64.zip" && \
@@ -55,7 +60,7 @@ RUN curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.24
 RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
 
 # Install kube-bench
-RUN curl -LO "https://github.com/aquasecurity/kube-bench/releases/download/v0.6.17/kube-bench_0.6.17_linux_amd64.tar.gz" && \
+RUN curl -LO "https://github.com/aquasecurity/kube-bench/releases/latest/download/kube-bench_0.6.17_linux_amd64.tar.gz" && \
     tar zxvf kube-bench_0.6.17_linux_amd64.tar.gz -C /usr/local/bin && \
     rm kube-bench_0.6.17_linux_amd64.tar.gz
 
@@ -77,8 +82,8 @@ RUN apt-get clean && \
     rm -rf /root/kubectx && \
     rm -rf /tmp/*
 
-# Expose necessary ports
-EXPOSE 8088 8087 8086 8085
+# Expose necessary ports (if needed)
+# EXPOSE 8088 8087 8086 8085
 
 # Entry point or command for your container
 CMD ["/bin/bash"]
