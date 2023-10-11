@@ -46,4 +46,4 @@ RUN echo "\nexport PATH=${KREW_ROOT}/bin:$PATH" >> /root/.bashrc && \
 RUN rm -rf /root/kubectx
 
 # Entry point or command for your container
-CMD ["/bin/bash"]
+CMD ["tail", "-f", "/dev/null"]
