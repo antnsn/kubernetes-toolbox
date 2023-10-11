@@ -40,7 +40,11 @@ RUN (set -x; cd "$(mktemp -d)" && \
 # Update bashrc with PATH and aliases
 RUN echo "\nexport PATH=${KREW_ROOT}/bin:$PATH" >> /root/.bashrc && \
     echo "\nalias k='kubectl'" >> /root/.bashrc && \
-    echo "\nexport PATH=/root/kubectx:\$PATH" >> /root/.bashrc
+    echo "\nexport PATH=/root/kubectx:\$PATH" >> /root/.bashrc \
+    echo "\nexport PATH=${KREW_ROOT}/bin:$PATH" >> /home/ubuntu/.bashrc && \
+    echo "\nalias k='kubectl'" >> /home/ubuntu/.bashrc && \
+    echo "\nexport PATH=/root/kubectx:\$PATH" >> /home/ubuntu/.bashrc
+
 
 # Cleanup
 RUN rm -rf /root/kubectx
