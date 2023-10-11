@@ -38,9 +38,9 @@ RUN (set -x; cd "$(mktemp -d)" && \
     ./"${KREW}" install krew)
 
 # Update bashrc with PATH and aliases
-RUN echo "export PATH=${KREW_ROOT}/bin:$PATH" >> /root/.bashrc && \
+RUN echo "\nexport PATH=${KREW_ROOT}/bin:$PATH" >> /root/.bashrc && \
     echo "\nalias k='kubectl'" >> /root/.bashrc && \
-    echo "export PATH=/root/kubectx:\$PATH" >> /root/.bashrc
+    echo "\nexport PATH=/root/kubectx:\$PATH" >> /root/.bashrc
 
 # Cleanup
 RUN rm -rf /root/kubectx
