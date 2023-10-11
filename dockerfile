@@ -53,3 +53,4 @@ RUN rm -rf /root/kubectx
 CMD ["tail", "-f", "/dev/null"]
 
 USER ubuntu
+SHELL ["/bin/bash", "-c"]
