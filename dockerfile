@@ -42,6 +42,9 @@ RUN echo "\nexport PATH=${KREW_ROOT}/bin:$PATH" >> /root/.bashrc && \
     echo "\nalias k='kubectl'" >> /root/.bashrc && \
     echo "\nexport PATH=/root/kubectx:\$PATH" >> /root/.bashrc
 
+#Add symlink from shell to bash 
+RUN ln -sf /bin/bash /bin/sh
+
 # Cleanup
 RUN rm -rf /root/kubectx
 
