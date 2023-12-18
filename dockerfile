@@ -3,8 +3,9 @@ FROM debian:stable-slim
 
 # Set non-interactive mode for apt-get and other env variables
 ENV DEBIAN_FRONTEND=noninteractive \
-    kube-bench_version=0.6.19 \
-    crictl_version=1.29.0
+    kube_bench_version=0.6.19 \
+    crictl_version=1.29.0 \
+    trivy_version=0.18.3
 
 # Update package lists, install required tools and dependencies, and cleanup
 RUN apt-get update && \
@@ -36,12 +37,12 @@ RUN curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/v${cr
     tar zxvf crictl-v${crictl_version}-linux-amd64.tar.gz -C /usr/local/bin && rm crictl-v${crictl_version}-linux-amd64.tar.gz
     
 # Install trivy    
-RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.18.3
+RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v${trivy_version}
    
     
 # Install kube-bench    
-RUN curl -LO "https://github.com/aquasecurity/kube-bench/releases/latest/download/kube-bench_${kube-bench_version}_linux_amd64.tar.gz" && \
-    tar zxvf kube-bench_${kube-bench_version}_linux_amd64.tar.gz -C /usr/local/bin && rm kube-bench_${kube-bench_version}_linux_amd64.tar.gz
+RUN curl -LO "https://github.com/aquasecurity/kube-bench/releases/latest/download/kube-bench_${kube_bench_version}_linux_amd64.tar.gz" && \
+    tar zxvf kube-bench_${kube_bench_version}_linux_amd64.tar.gz -C /usr/local/bin && rm kube-bench_${kube_bench_version}_linux_amd64.tar.gz
 
 
 # Update bashrc with PATH and aliases
