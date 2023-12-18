@@ -13,7 +13,7 @@ Simplify and enhance your Kubernetes management experience on Azure with our com
 
 ## Included Tools
 
-- **Azure CLI:** Seamlessly manage Azure resources directly from your Kubernetes environment.
+- **Azure CLI:** Seamlessly manage Azure resources.
 - **kubectl:** Command-line tool for interacting with Kubernetes clusters.
 - **kubelogin:** Facilitates Azure Active Directory authentication within Kubernetes.
 - **k9s:** A terminal-based UI that simplifies Kubernetes cluster monitoring and management.
