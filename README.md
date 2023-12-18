@@ -18,7 +18,8 @@ Simplify and enhance your Kubernetes management experience on Azure with our com
 - **crictl:** Container runtime interface for Kubernetes, offering essential container management capabilities.
 - **trivy:** Enhance container security with comprehensive image vulnerability scanning.
 - **kube-bench:** Conduct security benchmarking for Kubernetes configurations to ensure best practices.
-- **K8Sgpt:** 
+- **K8Sgpt:** A tool for scanning your Kubernetes clusters, diagnosing, and triaging issues in simple English.
+
 ## How to Use
 
 This Docker image provides a one-stop solution for your Kubernetes needs. Simply pull the image and start leveraging these tools immediately:
