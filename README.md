@@ -58,11 +58,6 @@ The Docker image exposes the following ports, providing flexibility for your app
 - **8085**
 
 
-### Customization
+## Customization
 You can customize this Dockerfile to add or remove specific tools or dependencies according to your project requirements.
 
-### Cleanup
-
-The Dockerfile includes cleanup steps to reduce the image size by removing unnecessary files and package caches.
-
-Feel free to modify the Dockerfile as needed for your specific use case.
