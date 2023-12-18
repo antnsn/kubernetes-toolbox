@@ -19,6 +19,7 @@ Simplify and enhance your Kubernetes management experience on Azure with our com
 - **trivy:** Enhance container security with comprehensive image vulnerability scanning.
 - **kube-bench:** Conduct security benchmarking for Kubernetes configurations to ensure best practices.
 - **K8Sgpt:** A tool for scanning your Kubernetes clusters, diagnosing, and triaging issues in simple English.
+- **Netfetch:** A tool designed to scan Kubernetes namespaces for network policies, checking if your workloads are targeted by a network policy or not.
 
 ## How to Use
 

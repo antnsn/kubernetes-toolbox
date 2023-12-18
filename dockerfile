@@ -6,7 +6,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     kube_bench_version=0.6.19 \
     crictl_version=1.29.0 \
     trivy_version=0.18.3 \
-    k8sgpt_version=0.3.23
+    k8sgpt_version=0.3.23 \
+    netfetch_version=3.0.0
 
 # Update package lists, install required tools and dependencies, and cleanup
 RUN apt-get update && \
@@ -22,31 +23,37 @@ RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash && \
     chmod +x kubectl && mv kubectl /usr/local/bin
 
 # Install kubelogin
-RUN curl -LO "https://github.com/Azure/kubelogin/releases/latest/download/kubelogin-linux-amd64.zip" && \
-    unzip kubelogin-linux-amd64.zip && mv bin/linux_amd64/kubelogin /usr/local/bin/kubelogin && rm kubelogin-linux-amd64.zip 
+RUN curl -L "https://github.com/Azure/kubelogin/releases/latest/download/kubelogin-linux-amd64.zip" -o kubelogin.zip && \
+    unzip kubelogin.zip && mv bin/linux_amd64/kubelogin /usr/local/bin/kubelogin && rm kubelogin.zip 
     
 # Install k9s    
-RUN curl -LO "https://github.com/derailed/k9s/releases/latest/download/k9s_Linux_amd64.tar.gz" && \
-    tar zxvf k9s_Linux_amd64.tar.gz -C /usr/local/bin && rm k9s_Linux_amd64.tar.gz 
+RUN curl -L "https://github.com/derailed/k9s/releases/latest/download/k9s_Linux_amd64.tar.gz" -o k9s.tar.gz && \
+    tar zxvf k9s.tar.gz -C /usr/local/bin && rm k9s.tar.gz 
 
 # Install helm    
 RUN curl -LO "https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3" && chmod 700 get-helm-3 && ./get-helm-3 && rm get-helm-3 && \
     git clone https://github.com/ahmetb/kubectx /root/kubectx && ln -s /root/kubectx/kubectx /usr/local/bin/kubectx && ln -s /root/kubectx/kubens /usr/local/bin/kubens
     
 # Install crictl    
-RUN curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/v${crictl_version}/crictl-v${crictl_version}-linux-amd64.tar.gz --output crictl-v${crictl_version}-linux-amd64.tar.gz && \
-    tar zxvf crictl-v${crictl_version}-linux-amd64.tar.gz -C /usr/local/bin && rm crictl-v${crictl_version}-linux-amd64.tar.gz
+RUN curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/v${crictl_version}/crictl-v${crictl_version}-linux-amd64.tar.gz -o crictl.tar.gz && \
+    tar zxvf crictl.tar.gz -C /usr/local/bin && rm crictl.tar.gz
     
 # Install trivy    
 RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v${trivy_version}
-   
     
 # Install kube-bench    
-RUN curl -LO "https://github.com/aquasecurity/kube-bench/releases/latest/download/kube-bench_${kube_bench_version}_linux_amd64.tar.gz" && \
-    tar zxvf kube-bench_${kube_bench_version}_linux_amd64.tar.gz -C /usr/local/bin && rm kube-bench_${kube_bench_version}_linux_amd64.tar.gz
+RUN curl -L https://github.com/aquasecurity/kube-bench/releases/download/v0.6.2/kube-bench_${kube_bench_version}_linux_amd64.deb -o kube-bench_${kube_bench_version}_linux_amd64.deb && \
+    apt install ./kube-bench_${kube_bench_version}_linux_amd64.deb -f
 
-RUN curl -LO "https://github.com/k8sgpt-ai/k8sgpt/releases/download/v${k8sgpt_version}/k8sgpt_Linux_x86_64.tar.gz" && \
-    tar zxvf k8sgpt_Linux_x86_64.tar.gz -C /usr/local/bin && rm k8sgpt_Linux_x86_64.tar.gz
+# Install K8sGPT
+RUN curl -L "https://github.com/k8sgpt-ai/k8sgpt/releases/download/v${k8sgpt_version}/k8sgpt_Linux_x86_64.tar.gz" -o k8sgpt.tar.gz && \
+    tar zxvf k8sgpt.tar.gz -C /usr/local/bin && rm k8sgpt.tar.gz
+
+# Install netfetch
+RUN curl -L "https://github.com/deggja/netfetch/releases/download/${netfetch_version}/netfetch_${netfetch_version}_linux_amd64.tar.gz" -o netfetch.tar.gz && \
+    tar zvf netfetch.tar.gz -C /usr/local/bin && rm netfetch.tar.gz && \
+    mv /usr/local/bin/netfetch_${netfetch_version}_linux_amd64/netfetch /usr/local/bin
+
 
 # Create a user named 'k8s-toolbox' with UID 1000
 RUN useradd -u 1000 -m -s /bin/bash k8s-toolbox
