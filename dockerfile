@@ -1,5 +1,5 @@
 # Use a specific Ubuntu base image
-FROM ubuntu:23.10
+FROM debian:stable-slim
 
 # Set non-interactive mode for apt-get and other env variables
 ENV DEBIAN_FRONTEND=noninteractive KREW_ROOT=/root/.krew
