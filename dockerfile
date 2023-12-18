@@ -51,12 +51,11 @@ RUN touch /home/k8s-toolbox/.bashrc
 RUN chown -R k8s-toolbox:k8s-toolbox /home/k8s-toolbox
 
 # Update bashrc with PATH and aliases
-RUN echo "\nexport PATH=/root/kubectx:\$PATH" >> /root/.bashrc && \
-    echo "\nalias k='kubectl'" >> /root/.bashrc && \
-    echo "\nexport PATH=/root/kubectx:\$PATH" >> /home/k8s-toolbox/.bashrc && \
+RUN echo "\nalias k='kubectl'" >> /root/.bashrc && \
     echo "\nalias k='kubectl'" >> /home/k8s-toolbox/.bashrc
 
 
+EXPOSE 8085 8086 8087 8088
 
 # Cleanup
 RUN rm -rf /root/kubectx
@@ -66,4 +65,6 @@ CMD ["tail", "-f", "/dev/null"]
 
 # Switch to the newly created user
 USER k8s-toolbox
+WORKDIR /home/k8s-toolbox
+
 SHELL ["/bin/bash", "-c"]
