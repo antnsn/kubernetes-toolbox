@@ -10,7 +10,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 # Update package lists, install required tools and dependencies, and cleanup
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    bash curl ca-certificates unzip git make ncurses-term gcc libffi-dev libssl-dev cargo && \
+    bash curl ca-certificates unzip git make ncurses-term gcc libffi-dev libssl-dev cargo wget apt-transport-https gnupg lsb-release && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get clean && \
     rm -rf /tmp/*
@@ -37,8 +37,10 @@ RUN curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/v${cr
     tar zxvf crictl-v${crictl_version}-linux-amd64.tar.gz -C /usr/local/bin && rm crictl-v${crictl_version}-linux-amd64.tar.gz
     
 # Install trivy    
-RUN curl -LO wget https://github.com/aquasecurity/trivy/releases/download/v${trivy_version}/trivy_${trivy_version}_Linux-64bit.deb && \
-    sudo dpkg -i trivy_${trivy_version}_Linux-64bit.deb
+RUN wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add - && \
+    echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list && \
+    sudo apt-get update && \
+    sudo apt-get install trivy    
     
 # Install kube-bench    
 RUN curl -LO "https://github.com/aquasecurity/kube-bench/releases/latest/download/kube-bench_${kube-bench_version}_linux_amd64.tar.gz" && \
