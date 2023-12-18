@@ -24,8 +24,8 @@ Simplify and enhance your Kubernetes management experience on Azure with our com
 This Docker image provides a one-stop solution for your Kubernetes needs. Simply pull the image and start leveraging these tools immediately:
 
 ```bash
-docker pull mrplecto/kubernetes-toolbox:latest
-docker run -it mrplecto/kubernetes-toolbox:latest
+docker pull antnsn/kubernetes-toolbox:latest
+docker run -it antnsn/kubernetes-toolbox:latest
 ```
 
 ### Existing kube config
@@ -33,12 +33,12 @@ docker run -it mrplecto/kubernetes-toolbox:latest
 If you have an existing kube config file, you can easily integrate it with our Azure Kubernetes Toolbox. Simply volume map the `fileLocation` to `~/.kube/config` using the following command:
 
 ```bash
-docker run -v /path/to/your/.kube::/home/k8s-toolbox/.kube/ -it mrplecto/kubernetes-toolbox:latest
+docker run -v /path/to/your/.kube::/home/k8s-toolbox/.kube/ -it antnsn/kubernetes-toolbox:latest
 ```
 
 ### Full run with exposed ports, .kube map:
 ```bash
-docker run -p 8088:8088 -p 8087:8087 -p 8086:8086 -p 8085:8085 -v /path/to/your/.kube:/home/k8s-toolbox/.kube/ --name kubernetes-toolbox -it mrplecto/kubernetes-toolbox:latest
+docker run -p 8088:8088 -p 8087:8087 -p 8086:8086 -p 8085:8085 -v /path/to/your/.kube:/home/k8s-toolbox/.kube/ --name kubernetes-toolbox -it antnsn/kubernetes-toolbox:latest
 ```
 
 ### Access the container in your terminal into the container: 
