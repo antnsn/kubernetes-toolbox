@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img width="350" height="350" src="./assets/kubernetes-toolbox-logo.png">
+  <img height="50%" src="./assets/kubernetes-toolbox-logo.png">
 </p>
 
 ## Dockerfile for Azure CLI and Kubernetes Tools
