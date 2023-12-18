@@ -1,6 +1,6 @@
 
 ## Dockerfile for Azure CLI and Kubernetes Tools
-This Dockerfile builds a Docker image containing Azure CLI and various Kubernetes tools. It uses a multi-stage build to keep the final image size small.
+This Dockerfile builds a Docker image containing Azure CLI and various Kubernetes tools.
 
 [![Docker Publish](https://github.com/antnsn/kube-mgmt/actions/workflows/build.yml/badge.svg)](https://github.com/antnsn/kube-mgmt/actions/workflows/build.yml)
 
