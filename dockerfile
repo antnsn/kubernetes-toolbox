@@ -47,8 +47,6 @@ RUN curl -LO "https://github.com/aquasecurity/kube-bench/releases/latest/downloa
 
 # Create a user named 'k8s-toolbox' with UID 1000
 RUN useradd -u 1000 -m -s /bin/bash k8s-toolbox
-# Create a directory for the new user
-RUN mkdir /home/k8s-toolbox
 RUN touch /home/k8s-toolbox/.bashrc
 RUN chown -R k8s-toolbox:k8s-toolbox /home/k8s-toolbox
 
