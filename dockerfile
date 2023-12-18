@@ -50,6 +50,7 @@ RUN useradd -u 1000 -m -s /bin/bash k8s-toolbox
 RUN touch /home/k8s-toolbox/.bashrc
 RUN chown -R k8s-toolbox:k8s-toolbox /home/k8s-toolbox
 
+
 # Update bashrc with PATH and aliases
 RUN echo "\nalias k='kubectl'" >> /root/.bashrc && \
     echo "\nalias k='kubectl'" >> /home/k8s-toolbox/.bashrc
@@ -66,5 +67,6 @@ CMD ["tail", "-f", "/dev/null"]
 # Switch to the newly created user
 USER k8s-toolbox
 WORKDIR /home/k8s-toolbox
+RUN mkdir /home/k8s-toolbox/.kube
 
 SHELL ["/bin/bash", "-c"]
