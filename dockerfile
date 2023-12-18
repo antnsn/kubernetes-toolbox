@@ -4,8 +4,7 @@ FROM debian:stable-slim
 # Set non-interactive mode for apt-get and other env variables
 ENV DEBIAN_FRONTEND=noninteractive \
     kube-bench_version=0.6.19 \
-    crictl_version=1.29.0 \
-    trivy_version=0.48.0 
+    crictl_version=1.29.0
 
 # Update package lists, install required tools and dependencies, and cleanup
 RUN apt-get update && \
@@ -39,8 +38,7 @@ RUN curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/v${cr
 # Install trivy    
 RUN wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add - && \
     echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list && \
-    sudo apt-get update && \
-    sudo apt-get install trivy    
+    apt update && apt install -y trivy    
     
 # Install kube-bench    
 RUN curl -LO "https://github.com/aquasecurity/kube-bench/releases/latest/download/kube-bench_${kube-bench_version}_linux_amd64.tar.gz" && \
