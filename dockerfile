@@ -43,7 +43,9 @@ RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/
        
 # Install kube-bench    
 RUN curl -L "https://github.com/aquasecurity/kube-bench/releases/latest/download/kube-bench_${kube_bench_version}_linux_amd64.tar.gz" -o kube-bench.tar.gz && \
-    tar zxvf kube-bench.tar.gz -C /usr/local/bin && rm kube-bench.tar.gz
+    tar zxvf kube-bench.tar.gz -C /usr/local/bin && rm kube-bench.tar.gz && \
+    mkdir /etc/kube-bench && \ 
+    mv /usr/local/bin/cfg /etc/kube-bench/
 
 # Install K8sGPT
 RUN curl -L "https://github.com/k8sgpt-ai/k8sgpt/releases/download/v${k8sgpt_version}/k8sgpt_Linux_x86_64.tar.gz" -o k8sgpt.tar.gz && \
