@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img max-width=30%; src="./assets/kubernetes-toolbox-logo.png">
+  <img width=30%; src="./assets/kubernetes-toolbox-logo.png">
 </p>
 
 
