@@ -24,8 +24,8 @@ Simplify and enhance your Kubernetes management experience on Azure with our com
 This Docker image provides a one-stop solution for your Kubernetes needs. Simply pull the image and start leveraging these tools immediately:
 
 ```bash
-docker pull mrplecto/azure-k8s-toolbox:latest
-docker run -it mrplecto/azure-k8s-toolbox:latest
+docker pull mrplecto/k8s-toolbox:latest
+docker run -it mrplecto/k8s-toolbox:latest
 ```
 
 ## Existing kube config
@@ -33,7 +33,7 @@ docker run -it mrplecto/azure-k8s-toolbox:latest
 If you have an existing kube config file, you can easily integrate it with our Azure Kubernetes Toolbox. Simply volume map the `fileLocation` to `~/.kube/config` using the following command:
 
 ```bash
-docker run -v /path/to/your/.kube:~/.kube/ -it mrplecto/azure-k8s-toolbox:latest
+docker run -v /path/to/your/.kube:~/.kube/ -it mrplecto/k8s-toolbox:latest
 ```
 
 ## Tools Included
