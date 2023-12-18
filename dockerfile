@@ -10,7 +10,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     netfetch_version=3.0.0
 
 # Update package lists, install required tools and dependencies, and cleanup
-RUN apt-get update && apt-get upgrade && \
+RUN apt-get update && \
+    apt-get upgrade && \
     apt-get install -y --no-install-recommends \
     bash curl ca-certificates unzip git make ncurses-term gcc libffi-dev libssl-dev cargo wget apt-transport-https gnupg lsb-release && \
     rm -rf /var/lib/apt/lists/* && \
