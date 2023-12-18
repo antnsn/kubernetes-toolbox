@@ -54,7 +54,7 @@ RUN curl -L "https://github.com/k8sgpt-ai/k8sgpt/releases/download/v${k8sgpt_ver
 # Install netfetch
 RUN curl -L "https://github.com/deggja/netfetch/releases/download/${netfetch_version}/netfetch_${netfetch_version}_linux_amd64.tar.gz" -o netfetch.tar.gz && \
     tar zvf netfetch.tar.gz -C /usr/local/bin && rm netfetch.tar.gz && \
-    mv /usr/local/bin/netfetch_${netfetch_version}_linux_amd64/netfetch /usr/local/bin
+    find /usr/local/bin/ -name 'netfetch' -type f -exec mv {} /usr/local/bin/ \;gitc
 
 
 # Create a user named 'k8s-toolbox' with UID 1000
