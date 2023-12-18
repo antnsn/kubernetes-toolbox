@@ -4,35 +4,37 @@ This Dockerfile builds a Docker image containing Azure CLI and various Kubernete
 
 [![Docker Publish](https://github.com/antnsn/kube-mgmt/actions/workflows/build.yml/badge.svg)](https://github.com/antnsn/kube-mgmt/actions/workflows/build.yml)
 
-### Building the Docker Image
-To build the Docker image, navigate to the directory containing the Dockerfile and run the following command:
+# Azure Kubernetes Toolbox
+
+Simplify and enhance your Kubernetes management experience on Azure with our comprehensive toolbox Docker image. This ready-to-use solution bundles a suite of powerful tools, carefully selected to streamline your workflows.
+
+## Included Tools
+
+- **Azure CLI:** Seamlessly manage Azure resources directly from your Kubernetes environment.
+- **kubectl:** Command-line tool for interacting with Kubernetes clusters.
+- **kubelogin:** Facilitates Azure Active Directory authentication within Kubernetes.
+- **k9s:** A terminal-based UI that simplifies Kubernetes cluster monitoring and management.
+- **Helm:** Accelerate Kubernetes application deployment with Helm charts.
+- **crictl:** Container runtime interface for Kubernetes, offering essential container management capabilities.
+- **trivy:** Enhance container security with comprehensive image vulnerability scanning.
+- **kube-bench:** Conduct security benchmarking for Kubernetes configurations to ensure best practices.
+
+## How to Use
+
+This Docker image provides a one-stop solution for your Kubernetes needs. Simply pull the image and start leveraging these tools immediately:
 
 ```bash
-docker build -t kube-mgmt .
+docker pull mrplecto/azure-k8s-toolbox:latest
+docker run -it mrplecto/azure-k8s-toolbox:latest
 ```
 
-### Pulling the container from ghcr
+## Existing kube config
 
-To pull a Docker image from a container registry, you can use the `docker pull` command. In your case, you want to pull an image from the GitHub Container Registry (GHCR). Here's how you can do it:
+If you have an existing kube config file, you can easily integrate it with our Azure Kubernetes Toolbox. Simply volume map the `fileLocation` to `~/.kube/config` using the following command:
 
 ```bash
-docker pull ghcr.io/antnsn/kube-mgmt:latest
+docker run -v /path/to/your/.kube:~/.kube/ -it mrplecto/azure-k8s-toolbox:latest
 ```
-
-
-### Running a Container
-Once the image is built, you can run a container using the following command:
-```bash
-docker run -it kube-mgmt
-```
-This will start an interactive shell in the container, allowing you to use Azure CLI and Kubernetes tools.
-
-
-
-
-
-This command will fetch the `kube-mgmt` image from the `ghcr.io/antnsn` repository with the `latest` tag.
-
 
 ## Tools Included
 The Docker image includes the following tools:
@@ -42,19 +44,20 @@ The Docker image includes the following tools:
  - kubelogin 
  - k9s
  - Helm
- - Kubectx
  - crictl
  - trivy
  - kube-bench 
- - krew
+
 
 ### Exposed Ports
-The Docker image exposes the following ports, which you can use for your applications:
 
- - 8088
- - 8087
- - 8086
- - 8085
+The Docker image exposes the following ports, providing flexibility for your applications:
+
+- **8088**
+- **8087**
+- **8086**
+- **8085**
+
 
 ### Customization
 You can customize this Dockerfile to add or remove specific tools or dependencies according to your project requirements.
