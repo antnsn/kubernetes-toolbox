@@ -45,11 +45,19 @@ RUN curl -LO "https://github.com/aquasecurity/kube-bench/releases/latest/downloa
     tar zxvf kube-bench_${kube_bench_version}_linux_amd64.tar.gz -C /usr/local/bin && rm kube-bench_${kube_bench_version}_linux_amd64.tar.gz
 
 
+# Create a user named 'k8s-toolbox' with UID 1000
+RUN useradd -u 1000 -m -s /bin/bash k8s-toolbox
+# Create a directory for the new user
+RUN mkdir /home/k8s-toolbox
+RUN touch /home/k8s-toolbox/.bashrc
+RUN chown -R k8s-toolbox:k8s-toolbox /home/k8s-toolbox
+
 # Update bashrc with PATH and aliases
-RUN echo "\nalias k='kubectl'" >> /root/.bashrc && \
-    echo "\nexport PATH=/root/kubectx:\$PATH" >> /root/.bashrc \
-    echo "\nalias k='kubectl'" >> /home/debian/.bashrc && \
-    echo "\nexport PATH=/root/kubectx:\$PATH" >> /home/debian/.bashrc
+RUN echo "\nexport PATH=/root/kubectx:\$PATH" >> /root/.bashrc && \
+    echo "\nalias k='kubectl'" >> /root/.bashrc && \
+    echo "\nexport PATH=/root/kubectx:\$PATH" >> /home/k8s-toolbox/.bashrc && \
+    echo "\nalias k='kubectl'" >> /home/k8s-toolbox/.bashrc
+
 
 
 # Cleanup
@@ -58,5 +66,6 @@ RUN rm -rf /root/kubectx
 # Entry point or command for your container
 CMD ["tail", "-f", "/dev/null"]
 
-USER debian
+# Switch to the newly created user
+USER k8s-toolbox
 SHELL ["/bin/bash", "-c"]
