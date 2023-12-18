@@ -19,7 +19,7 @@ Simplify and enhance your Kubernetes management experience on Azure with our com
 - **k9s:** A terminal-based UI that simplifies Kubernetes cluster monitoring and management.
 - **Helm:** Accelerate Kubernetes application deployment with Helm charts.
 - **[Netfetch](https://github.com/deggja/netfetch):** A tool designed to scan Kubernetes namespaces for network policies, checking if your workloads are targeted by a network policy or not.
-- **K8Sgpt:** A tool for scanning your Kubernetes clusters, diagnosing, and triaging issues in simple English.
+- **[k8sgpt ](https://github.com/k8sgpt-ai/k8sgpt):** A tool for scanning your Kubernetes clusters, diagnosing, and triaging issues in simple English.
 - **crictl:** Container runtime interface for Kubernetes, offering essential container management capabilities.
 - **trivy:** Enhance container security with comprehensive image vulnerability scanning.
 - **kube-bench:** Conduct security benchmarking for Kubernetes configurations to ensure best practices.
