@@ -5,7 +5,8 @@ FROM debian:stable-slim
 ENV DEBIAN_FRONTEND=noninteractive \
     kube_bench_version=0.6.19 \
     crictl_version=1.29.0 \
-    trivy_version=0.18.3
+    trivy_version=0.18.3 \
+    k8sgpt_version=0.3.23
 
 # Update package lists, install required tools and dependencies, and cleanup
 RUN apt-get update && \
@@ -44,6 +45,8 @@ RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/
 RUN curl -LO "https://github.com/aquasecurity/kube-bench/releases/latest/download/kube-bench_${kube_bench_version}_linux_amd64.tar.gz" && \
     tar zxvf kube-bench_${kube_bench_version}_linux_amd64.tar.gz -C /usr/local/bin && rm kube-bench_${kube_bench_version}_linux_amd64.tar.gz
 
+RUN curl -LO "https://github.com/k8sgpt-ai/k8sgpt/releases/download/v${k8sgpt_version}/k8sgpt_Linux_x86_64.tar.gz" && \
+    tar zxvf k8sgpt_Linux_x86_64.tar.gz -C /usr/local/bin && rm k8sgpt_Linux_x86_64.tar.gz
 
 # Create a user named 'k8s-toolbox' with UID 1000
 RUN useradd -u 1000 -m -s /bin/bash k8s-toolbox
