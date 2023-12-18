@@ -1,5 +1,5 @@
 
-![image](./assets/kubernetes-toolbox-logo.svg)
+![image](./assets/kubernetes-toolbox-logo.png)
 
 ## Dockerfile for Azure CLI and Kubernetes Tools
 This Dockerfile builds a Docker image containing Azure CLI and various Kubernetes tools.
