@@ -3,7 +3,7 @@ FROM debian:stable-slim
 
 # Set non-interactive mode for apt-get and other env variables
 ENV DEBIAN_FRONTEND=noninteractive \
-    kube_bench_version=0.6.19 \
+    kube_bench_version=0.7.0 \
     crictl_version=1.29.0 \
     trivy_version=0.18.3 \
     k8sgpt_version=0.3.23 \
