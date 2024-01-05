@@ -31,8 +31,10 @@ RUN curl -L "https://github.com/derailed/k9s/releases/latest/download/k9s_Linux_
     tar zxvf k9s.tar.gz -C /usr/local/bin && rm k9s.tar.gz 
 
 # Install helm    
-RUN curl -LO "https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3" && chmod 700 get-helm-3 && ./get-helm-3 && rm get-helm-3 && \
-    git clone https://github.com/ahmetb/kubectx /root/kubectx && ln -s /root/kubectx/kubectx /usr/local/bin/kubectx && ln -s /root/kubectx/kubens /usr/local/bin/kubens
+RUN curl -LO "https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3" && chmod 700 get-helm-3 && ./get-helm-3 && rm get-helm-3
+
+# Install kubectx and kubens
+RUN git clone https://github.com/ahmetb/kubectx /root/kubectx && ln -s /root/kubectx/kubectx /usr/local/bin/kubectx && ln -s /root/kubectx/kubens /usr/local/bin/kubens
     
 # Install crictl    
 RUN curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/v${crictl_version}/crictl-v${crictl_version}-linux-amd64.tar.gz -o crictl.tar.gz && \
